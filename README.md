@@ -10,6 +10,9 @@ Simple Student Management System to go through SRE bootcamp exercises. (https://
 
 ![alt code-organization](./docs/ssms-app-structure.png)
 
+
+## Hexagonal Architecture (Dependency Graph)
+![alt dependency-graph](./docs/dependency-graph.png)
 ## Domain Driven Design
 
 Aggregate Root: Student
