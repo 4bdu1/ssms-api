@@ -1,10 +1,11 @@
-package com.abduldevelops.ssms.api.domain.core.entity;
+package com.abduldevelops.ssms.api.domain.entity;
 
-import com.abduldevelops.ssms.api.domain.core.valueobject.EmailAddress;
-import com.abduldevelops.ssms.api.domain.core.valueobject.StudentID;
-import com.abduldevelops.ssms.api.domain.core.valueobject.StudentName;
-import com.abduldevelops.ssms.api.domain.entity.AggregateRoot;
+import com.abduldevelops.ssms.api.domain.valueobject.EmailAddress;
+import com.abduldevelops.ssms.api.domain.valueobject.StudentID;
+import com.abduldevelops.ssms.api.domain.valueobject.StudentName;
+import com.abduldevelops.ssms.api.domain.valueobject.StudentSlugID;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -12,11 +13,15 @@ public class Student extends AggregateRoot<StudentID> {
 
     private final StudentName studentName;
     private final EmailAddress emailAddress;
-    private final ZonedDateTime createdAt;
-    private final ZonedDateTime modifiedAt;
+
+    private StudentSlugID studentSlugID;
+
+    private  ZonedDateTime createdAt;
+    private  ZonedDateTime modifiedAt;
 
     private Student(Builder builder) {
         super.setId(builder.studentID);
+        studentSlugID = builder.studentSlugID;
         studentName = builder.studentName;
         emailAddress = builder.emailAddress;
         createdAt = builder.createdAt;
@@ -26,6 +31,11 @@ public class Student extends AggregateRoot<StudentID> {
     public static Builder builder() {
         return new Builder();
     }
+
+    public StudentSlugID getStudentSlugID() {
+        return studentSlugID;
+    }
+
 
     public StudentName getStudentName() {
         return studentName;
@@ -45,6 +55,9 @@ public class Student extends AggregateRoot<StudentID> {
 
     public void initAddStudent(){
         setId(new StudentID(UUID.randomUUID()));
+        studentSlugID = new StudentSlugID(UUID.randomUUID());
+        createdAt = ZonedDateTime.now(ZoneId.of("UTC"));
+        modifiedAt = ZonedDateTime.now(ZoneId.of("UTC"));
     }
 
     public Student updateStudentName(Student student, String firstName, String lastName){
@@ -67,17 +80,11 @@ public class Student extends AggregateRoot<StudentID> {
 
     public static final class Builder {
         private StudentID studentID;
+        private StudentSlugID studentSlugID;
         private StudentName studentName;
         private EmailAddress emailAddress;
         private ZonedDateTime createdAt;
         private ZonedDateTime modifiedAt;
-
-        public Builder(StudentName studentName, EmailAddress emailAddress, ZonedDateTime createdAt, ZonedDateTime modifiedAt) {
-            this.studentName = studentName;
-            this.emailAddress = emailAddress;
-            this.createdAt = createdAt;
-            this.modifiedAt = modifiedAt;
-        }
 
         private Builder() {
         }
@@ -85,6 +92,11 @@ public class Student extends AggregateRoot<StudentID> {
 
         public Builder id(StudentID val) {
             studentID = val;
+            return this;
+        }
+
+        public Builder studentSlugID(StudentSlugID val) {
+            studentSlugID = val;
             return this;
         }
 

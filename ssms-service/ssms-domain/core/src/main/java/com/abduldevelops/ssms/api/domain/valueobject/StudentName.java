@@ -1,4 +1,4 @@
-package com.abduldevelops.ssms.api.domain.core.valueobject;
+package com.abduldevelops.ssms.api.domain.valueobject;
 
 import java.util.Objects;
 
