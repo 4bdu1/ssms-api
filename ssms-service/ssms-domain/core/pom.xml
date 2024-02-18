@@ -11,5 +11,13 @@
 
     <artifactId>core</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.abduldevelops.ssms.api</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+    </dependencies>
+
+
 
 </project>
