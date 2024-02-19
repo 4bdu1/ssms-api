@@ -16,6 +16,7 @@ Simple Student Management System to go through SRE bootcamp exercises. (https://
 ## Domain Driven Design
 
 Aggregate Root: Student
+
 Attributes: StudentID, StudentName, EmailAddress, EnrollmentDate
 
 Methods
