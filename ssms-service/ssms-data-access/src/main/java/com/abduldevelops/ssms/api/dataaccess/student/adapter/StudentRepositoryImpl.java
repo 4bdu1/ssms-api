@@ -18,11 +18,14 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Student save(Student student) {
-        return null;
+        return studentDataAccessMapper
+                .studentEntityToStudent(
+                        studentJpaRepository.save(studentDataAccessMapper.studentToStudentEntity(student)));
     }
 
     @Override
     public Optional<Student> findBySlugID(StudentSlugID studentSlugID) {
-        return Optional.empty();
+        return studentJpaRepository.findByStudentSlugID(studentSlugID.getValue())
+                .map(studentDataAccessMapper::studentEntityToStudent);
     }
 }
