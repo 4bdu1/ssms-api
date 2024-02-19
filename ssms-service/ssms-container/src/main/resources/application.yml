@@ -1,0 +1,40 @@
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
+
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:ssms}?binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      pool-name: ${DB_NAME:ssms}-pool
+      maximum-pool-size: 5
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false

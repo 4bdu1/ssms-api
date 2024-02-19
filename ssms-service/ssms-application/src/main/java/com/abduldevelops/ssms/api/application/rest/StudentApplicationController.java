@@ -17,16 +17,10 @@ public class StudentApplicationController {
 
     @PostMapping
     public ResponseEntity<CreateStudentResponse> createStudent(@RequestBody CreateStudentCommand createStudentCommand){
-        log.info("Creating Student with email {}", createStudentCommand.getEmailAddress());
+        log.info("Creating student with email {}", createStudentCommand.getEmailAddress());
         CreateStudentResponse createStudentResponse = studentApplicationService.createStudent(createStudentCommand);
         log.info("Student created with slug ID {}", createStudentResponse.getStudentSlugID());
         return ResponseEntity.ok(createStudentResponse);
-    }
-
-    @GetMapping("/health")
-    public ResponseEntity healthCheck(){
-        log.info("In student service health check");
-        return ResponseEntity.ok("Student Service is up!");
     }
 
 }

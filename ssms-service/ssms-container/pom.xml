@@ -24,10 +24,17 @@
             <groupId>com.abduldevelops.ssms.api</groupId>
             <artifactId>ssms-application</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.abduldevelops.ssms.api</groupId>
+            <artifactId>ssms-data-access</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
         </dependency>
     </dependencies>
 
@@ -39,8 +46,7 @@
                 <version>${jib-maven-plugin.version}</version>
                 <configuration>
                     <from>
-                        <!--                                            <image>eclipse-temurin:17-alpine</image>-->
-                        <image>amazoncorretto:17.0.10-alpine3.17</image>
+                        <image>eclipse-temurin:17-alpine</image>
                     </from>
                     <to>
                         <image>
