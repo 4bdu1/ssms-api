@@ -6,6 +6,7 @@ management:
     health:
       show-details: always
 
+
 spring:
   jpa:
     hibernate:
@@ -38,3 +39,6 @@ spring:
         cacheServerConfiguration: true
         elideSetAutoCommits: true
         maintainTimeStats: false
+  mvc:
+    problemdetails:
+      enabled: true

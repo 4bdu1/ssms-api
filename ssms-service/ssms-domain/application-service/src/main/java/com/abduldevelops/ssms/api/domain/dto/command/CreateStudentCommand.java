@@ -18,6 +18,6 @@ public class CreateStudentCommand {
     private final String lastName;
 
     @NotNull(message = "emailAddress can't be null")
-    @Email
+    @Email(message="emailAddress must be a well-formed email address")
     private final String emailAddress;
 }
