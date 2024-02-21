@@ -11,6 +11,7 @@ public interface StudentApplicationService {
 
     CreateStudentResponse createStudent(@Valid CreateStudentCommand createStudentCommand);
     GetStudentResponse getStudent(@Valid GetStudentQuery getStudentQuery);
+    void deleteStudent(@Valid GetStudentQuery getStudentQuery);
     Page<GetStudentResponse> getAllStudents(Integer pageNumber, Integer pageSize);
 
 

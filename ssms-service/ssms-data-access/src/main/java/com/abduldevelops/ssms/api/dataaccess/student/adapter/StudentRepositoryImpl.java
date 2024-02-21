@@ -52,7 +52,15 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Boolean deleteBySlugID(StudentSlugID studentSlugID) {
-        return null;
+        Optional<Student> existingStudent =  studentJpaRepository.findByStudentSlugID(studentSlugID.getValue())
+                .map(studentDataAccessMapper::studentEntityToStudent);
+
+        if(existingStudent.isEmpty()){
+            return false;
+        }
+
+        studentJpaRepository.deleteByStudentSlugID(studentSlugID.getValue());
+        return true;
     }
 
     @Override

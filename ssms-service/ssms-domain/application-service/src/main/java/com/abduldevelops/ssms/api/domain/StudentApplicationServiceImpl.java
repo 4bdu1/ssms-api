@@ -15,17 +15,22 @@ import org.springframework.validation.annotation.Validated;
 @Service
 public class StudentApplicationServiceImpl implements StudentApplicationService {
 
-    private final CreateStudentCommandHandler createStudentCommandHandler;
+    private final StudentRestCommandHandler studentRestCommandHandler;
     private final GetStudentQueryHandler getStudentQueryHandler;
 
     @Override
     public CreateStudentResponse createStudent(CreateStudentCommand createStudentCommand) {
-        return createStudentCommandHandler.createStudent(createStudentCommand);
+        return studentRestCommandHandler.createStudent(createStudentCommand);
     }
 
     @Override
     public GetStudentResponse getStudent(GetStudentQuery getStudentQuery) {
         return getStudentQueryHandler.getStudent(getStudentQuery);
+    }
+
+    @Override
+    public void deleteStudent(GetStudentQuery getStudentQuery) {
+        studentRestCommandHandler.deleteStudent(getStudentQuery);
     }
 
     @Override

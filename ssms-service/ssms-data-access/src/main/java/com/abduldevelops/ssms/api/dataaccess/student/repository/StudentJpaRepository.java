@@ -11,4 +11,8 @@ import java.util.UUID;
 public interface StudentJpaRepository extends JpaRepository<StudentEntity, UUID> {
     Optional<StudentEntity> findByStudentSlugID(UUID studentSlugID);
     Optional<StudentEntity> findByEmailAddress(String emailAddress);
+    void deleteByStudentSlugID(UUID studentSlugID);
+
+
+
 }

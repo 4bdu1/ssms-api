@@ -49,4 +49,11 @@ public class StudentApplicationController {
         return ResponseEntity.ok(getStudentResponse);
     }
 
+    @DeleteMapping(STUDENT_PATH_ID)
+    public ResponseEntity deleteStudent(@PathVariable UUID studentSlugID) {
+        log.info("Deleting student with slug ID {}", studentSlugID);
+        studentApplicationService.deleteStudent(GetStudentQuery.builder().studentSlugID(studentSlugID).build());
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
 }
