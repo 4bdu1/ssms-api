@@ -28,9 +28,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     public Student save(Student student) {
         return studentDataAccessMapper
                 .studentEntityToStudent(
-                        studentJpaRepository.save(studentDataAccessMapper.studentToStudentEntity(student)));
+                        studentJpaRepository.save(
+                                studentDataAccessMapper.studentToStudentEntity(student)));
     }
-
 
     @Override
     public Page<Student> findAll(Integer pageNumber, Integer pageSize) {
