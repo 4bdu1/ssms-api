@@ -5,6 +5,7 @@ import com.abduldevelops.ssms.api.dataaccess.student.mapper.StudentDataAccessMap
 import com.abduldevelops.ssms.api.dataaccess.student.repository.StudentJpaRepository;
 import com.abduldevelops.ssms.api.domain.entity.Student;
 import com.abduldevelops.ssms.api.domain.port.output.repository.StudentRepository;
+import com.abduldevelops.ssms.api.domain.valueobject.EmailAddress;
 import com.abduldevelops.ssms.api.domain.valueobject.StudentSlugID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -57,6 +58,12 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public Optional<Student> findBySlugID(StudentSlugID studentSlugID) {
         return studentJpaRepository.findByStudentSlugID(studentSlugID.getValue())
+                .map(studentDataAccessMapper::studentEntityToStudent);
+    }
+
+    @Override
+    public Optional<Student> findByEmailAddress(EmailAddress emailAddress) {
+        return studentJpaRepository.findByEmailAddress(emailAddress.getEmailAddress())
                 .map(studentDataAccessMapper::studentEntityToStudent);
     }
 

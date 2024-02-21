@@ -1,6 +1,7 @@
 package com.abduldevelops.ssms.api.domain.port.output.repository;
 
 import com.abduldevelops.ssms.api.domain.entity.Student;
+import com.abduldevelops.ssms.api.domain.valueobject.EmailAddress;
 import com.abduldevelops.ssms.api.domain.valueobject.StudentSlugID;
 import org.springframework.data.domain.Page;
 
@@ -19,4 +20,6 @@ public interface StudentRepository {
     Boolean deleteBySlugID(StudentSlugID studentSlugID);
 
     Optional<Student> findBySlugID(StudentSlugID studentSlugID);
+
+    Optional<Student> findByEmailAddress(EmailAddress emailAddress);
 }
