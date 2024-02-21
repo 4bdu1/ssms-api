@@ -7,6 +7,7 @@ import com.abduldevelops.ssms.api.domain.dto.query.GetStudentResponse;
 import com.abduldevelops.ssms.api.domain.port.input.service.StudentApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,19 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value="api/v1/students")
 public class StudentApplicationController {
     private final StudentApplicationService studentApplicationService;
+    public static final String STUDENT_PATH = "/api/v1/students";
+    public static final String STUDENT_PATH_ID = STUDENT_PATH + "/{studentSlugID}";
 
-    @PostMapping
+    @GetMapping(STUDENT_PATH)
+    public Page<GetStudentResponse> getAllStudents(@RequestParam(required = false) Integer pageNumber,
+                                  @RequestParam(required = false) Integer pageSize){
+        log.info("Getting all students paginated");
+        return studentApplicationService.getAllStudents(pageNumber, pageSize);
+    }
+
+    @PostMapping(STUDENT_PATH)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CreateStudentResponse> createStudent(@RequestBody CreateStudentCommand createStudentCommand){
         log.info("Creating student with email {}", createStudentCommand.getEmailAddress());
@@ -33,8 +42,8 @@ public class StudentApplicationController {
     }
 
 
-    @GetMapping("/{studentSlugID}")
-    public ResponseEntity<GetStudentResponse> getStudent(@PathVariable UUID studentSlugID){
+    @GetMapping(STUDENT_PATH_ID)
+    public ResponseEntity<GetStudentResponse> getStudent(@PathVariable UUID studentSlugID) {
         log.info("Getting student with slug ID {}", studentSlugID);
         GetStudentResponse getStudentResponse = studentApplicationService.getStudent(GetStudentQuery.builder().studentSlugID(studentSlugID).build());
         return ResponseEntity.ok(getStudentResponse);

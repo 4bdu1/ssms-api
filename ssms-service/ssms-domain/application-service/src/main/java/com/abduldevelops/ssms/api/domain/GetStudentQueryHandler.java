@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
@@ -33,5 +34,11 @@ public class GetStudentQueryHandler {
         }
 
         return studentDataMapper.studentToGetStudentResponse(studentResult.get());
+    }
+
+    @Transactional(readOnly = true)
+    Page<GetStudentResponse> getAllStudents(Integer pageNumber, Integer pageSize){
+        Page<Student> studentPage = studentRepository.findAll(pageNumber,pageSize);
+        return studentPage.map(studentDataMapper::studentToGetStudentResponse);
     }
 }

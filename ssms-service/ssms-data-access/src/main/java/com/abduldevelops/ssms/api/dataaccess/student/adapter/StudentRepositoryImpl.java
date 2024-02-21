@@ -1,5 +1,6 @@
 package com.abduldevelops.ssms.api.dataaccess.student.adapter;
 
+import com.abduldevelops.ssms.api.dataaccess.student.entity.StudentEntity;
 import com.abduldevelops.ssms.api.dataaccess.student.mapper.StudentDataAccessMapper;
 import com.abduldevelops.ssms.api.dataaccess.student.repository.StudentJpaRepository;
 import com.abduldevelops.ssms.api.domain.entity.Student;
@@ -32,7 +33,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public Page<Student> findAll(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
-        return null;
+        Page<StudentEntity> studentEntityPage = studentJpaRepository.findAll(pageRequest);
+        return studentEntityPage.map(studentDataAccessMapper::studentEntityToStudent);
+
     }
 
 

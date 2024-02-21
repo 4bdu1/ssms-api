@@ -2,6 +2,7 @@ package com.abduldevelops.ssms.api.domain;
 
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentCommand;
 import com.abduldevelops.ssms.api.domain.entity.Student;
+import com.abduldevelops.ssms.api.domain.exception.StudentDomainException;
 import com.abduldevelops.ssms.api.domain.mapper.StudentDataMapper;
 import com.abduldevelops.ssms.api.domain.port.output.repository.StudentRepository;
 import com.abduldevelops.ssms.api.domain.service.DomainService;
@@ -26,7 +27,7 @@ public class CreateStudentHelper {
 
         if(savedStudent == null){
             log.error("Could not save student.");
-            //throw exception
+            throw new StudentDomainException("Could not save student");
         }
 
         log.info("Student with id: {} has been saved", savedStudent.getId().getValue());
