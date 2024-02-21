@@ -60,24 +60,6 @@ public class Student extends AggregateRoot<StudentID> {
         modifiedAt = ZonedDateTime.now(ZoneId.of("UTC"));
     }
 
-    public Student updateStudentName(Student student, String firstName, String lastName){
-        return Student.builder()
-                .id(student.getId())
-                .studentName(new StudentName(firstName, lastName))
-                .emailAddress(student.getEmailAddress())
-                .build();
-
-    }
-
-    public Student updateEmailAddress(Student student, String newEmail){
-        return Student.builder()
-                .id(student.getId())
-                .studentName(student.getStudentName())
-                .emailAddress(new EmailAddress(newEmail))
-                .build();
-    }
-
-
     public static final class Builder {
         private StudentID studentID;
         private StudentSlugID studentSlugID;

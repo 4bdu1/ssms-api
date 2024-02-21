@@ -2,6 +2,7 @@ package com.abduldevelops.ssms.api.domain;
 
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentResponse;
+import com.abduldevelops.ssms.api.domain.dto.command.UpdateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.query.GetStudentQuery;
 import com.abduldevelops.ssms.api.domain.dto.query.GetStudentResponse;
 import com.abduldevelops.ssms.api.domain.port.input.service.StudentApplicationService;
@@ -36,5 +37,10 @@ public class StudentApplicationServiceImpl implements StudentApplicationService 
     @Override
     public Page<GetStudentResponse> getAllStudents(Integer pageNumber, Integer pageSize) {
         return getStudentQueryHandler.getAllStudents(pageNumber,pageSize);
+    }
+
+    @Override
+    public void updateStudent(GetStudentQuery getStudentQuery, UpdateStudentCommand updateStudentCommand) {
+        studentRestCommandHandler.updateStudent(getStudentQuery, updateStudentCommand);
     }
 }

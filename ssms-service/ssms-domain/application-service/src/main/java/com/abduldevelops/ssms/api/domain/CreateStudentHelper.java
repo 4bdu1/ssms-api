@@ -38,7 +38,7 @@ public class CreateStudentHelper {
         return savedStudent;
     }
 
-    private void checkEmail(EmailAddress emailAddress){
+    public void checkEmail(EmailAddress emailAddress){
         Optional<Student> existingStudent = studentRepository.findByEmailAddress(emailAddress);
 
         if(!existingStudent.isEmpty()){

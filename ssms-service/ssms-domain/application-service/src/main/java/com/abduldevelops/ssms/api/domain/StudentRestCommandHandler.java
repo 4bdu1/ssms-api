@@ -2,11 +2,13 @@ package com.abduldevelops.ssms.api.domain;
 
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentResponse;
+import com.abduldevelops.ssms.api.domain.dto.command.UpdateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.query.GetStudentQuery;
 import com.abduldevelops.ssms.api.domain.entity.Student;
 import com.abduldevelops.ssms.api.domain.exception.StudentNotFoundException;
 import com.abduldevelops.ssms.api.domain.mapper.StudentDataMapper;
 import com.abduldevelops.ssms.api.domain.port.output.repository.StudentRepository;
+import com.abduldevelops.ssms.api.domain.valueobject.EmailAddress;
 import com.abduldevelops.ssms.api.domain.valueobject.StudentSlugID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +38,16 @@ public class StudentRestCommandHandler {
                         + " could not be found");
             }
 
+    }
+
+    @Transactional
+    public void updateStudent(GetStudentQuery getStudentQuery, UpdateStudentCommand updateStudentCommand) {
+        Student student = studentDataMapper.updateStudentCommandToStudent(updateStudentCommand);
+        createStudentHelper.checkEmail(new EmailAddress(updateStudentCommand.getEmailAddress()));
+        if(studentRepository.updateBySlugID(new StudentSlugID(getStudentQuery.getStudentSlugID()), student).isEmpty()){
+            throw new StudentNotFoundException("Student with id: "
+                    + getStudentQuery.getStudentSlugID().toString()
+                    + " could not be found");
+        }
     }
 }

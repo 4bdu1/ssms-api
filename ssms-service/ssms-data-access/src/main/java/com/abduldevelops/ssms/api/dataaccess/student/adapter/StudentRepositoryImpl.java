@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RequiredArgsConstructor
 @Component
@@ -42,13 +43,23 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Optional<Student> updateBySlugID(StudentSlugID studentSlugID, Student student) {
-        return Optional.empty();
+
+        AtomicReference<Optional<Student>> atomicReference = new AtomicReference<>();
+
+        studentJpaRepository.findByStudentSlugID(studentSlugID.getValue()).ifPresentOrElse(foundStudent -> {
+            foundStudent.setFirstName(student.getStudentName().getFirstName());
+            foundStudent.setLastName(student.getStudentName().getLastName());
+            foundStudent.setEmailAddress(student.getEmailAddress().getEmailAddress());
+
+            atomicReference.set(Optional.of(studentDataAccessMapper
+                    .studentEntityToStudent(studentJpaRepository.save(foundStudent))));
+        }, () ->{
+            atomicReference.set(Optional.empty());
+        });
+
+        return atomicReference.get();
     }
 
-    @Override
-    public Optional<Student> patchBySlugID(StudentSlugID studentSlugID, Student student) {
-        return Optional.empty();
-    }
 
     @Override
     public Boolean deleteBySlugID(StudentSlugID studentSlugID) {

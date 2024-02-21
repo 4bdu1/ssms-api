@@ -2,6 +2,7 @@ package com.abduldevelops.ssms.api.application.rest;
 
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentResponse;
+import com.abduldevelops.ssms.api.domain.dto.command.UpdateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.query.GetStudentQuery;
 import com.abduldevelops.ssms.api.domain.dto.query.GetStudentResponse;
 import com.abduldevelops.ssms.api.domain.port.input.service.StudentApplicationService;
@@ -53,6 +54,13 @@ public class StudentApplicationController {
     public ResponseEntity deleteStudent(@PathVariable UUID studentSlugID) {
         log.info("Deleting student with slug ID {}", studentSlugID);
         studentApplicationService.deleteStudent(GetStudentQuery.builder().studentSlugID(studentSlugID).build());
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(STUDENT_PATH_ID)
+    public ResponseEntity updateStudent(@PathVariable UUID studentSlugID, @RequestBody UpdateStudentCommand updateStudentCommand) {
+        log.info("Updating student with slug ID {}", studentSlugID);
+        studentApplicationService.updateStudent(GetStudentQuery.builder().studentSlugID(studentSlugID).build(),updateStudentCommand);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

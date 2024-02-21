@@ -2,6 +2,7 @@ package com.abduldevelops.ssms.api.domain.mapper;
 
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentResponse;
+import com.abduldevelops.ssms.api.domain.dto.command.UpdateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.query.GetStudentResponse;
 import com.abduldevelops.ssms.api.domain.entity.Student;
 import org.mapstruct.Mapper;
@@ -14,6 +15,11 @@ public interface StudentDataMapper {
     @Mapping(target = "studentName.firstName", source = "createStudentCommand.firstName")
     @Mapping(target = "studentName.lastName", source = "createStudentCommand.lastName")
     Student createStudentCommandToStudent(CreateStudentCommand createStudentCommand);
+
+    @Mapping(target = "emailAddress.emailAddress", source = "updateStudentCommand.emailAddress")
+    @Mapping(target = "studentName.firstName", source = "updateStudentCommand.firstName")
+    @Mapping(target = "studentName.lastName", source = "updateStudentCommand.lastName")
+    Student updateStudentCommandToStudent(UpdateStudentCommand updateStudentCommand);
 
     @Mapping(target = "studentSlugID", source ="student.studentSlugID.value")
     CreateStudentResponse studentToCreateStudentResponse(Student student);

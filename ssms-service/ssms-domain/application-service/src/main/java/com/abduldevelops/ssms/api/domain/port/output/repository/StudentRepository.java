@@ -15,8 +15,6 @@ public interface StudentRepository {
 
     Optional<Student> updateBySlugID(StudentSlugID studentSlugID, Student student);
 
-    Optional<Student> patchBySlugID(StudentSlugID studentSlugID, Student student);
-
     Boolean deleteBySlugID(StudentSlugID studentSlugID);
 
     Optional<Student> findBySlugID(StudentSlugID studentSlugID);
