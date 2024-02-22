@@ -20,8 +20,7 @@ Aggregate Root: Student
 Attributes: StudentID, StudentName, EmailAddress, EnrollmentDate
 
 Methods
-- updateEmailAddress(Student student, String newEmail)
-- updateStudentName(Student student, String firstName, String lastName)
+- initAddStudent()
 
 ValueObjects
 - StudentID

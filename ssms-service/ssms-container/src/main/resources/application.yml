@@ -1,5 +1,6 @@
 server:
   port: ${PORT:8080}
+  forward-headers-strategy: framework
 
 management:
   endpoint:
@@ -42,3 +43,20 @@ spring:
   mvc:
     problemdetails:
       enabled: true
+
+springdoc:
+  version: '@project.version@'
+  api-docs:
+    version: openapi_3_1
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+  show-actuator: true
+#  group-configs:
+#    - group: Student
+#      paths-to-match: /api/v1/students/**
+  cache:
+    disabled: true
