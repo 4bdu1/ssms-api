@@ -1,6 +1,6 @@
 # SSMS API
 
-Simple Student Management System to go through SRE bootcamp exercises. (https://playbook.one2n.in/sre-bootcamp/sre-bootcamp-exercises)
+Simple Student Management System to go through [SRE Bootcamp](https://playbook.one2n.in/sre-bootcamp/sre-bootcamp-exercises) exercises.
 
 ## Architecture Diagram
 
