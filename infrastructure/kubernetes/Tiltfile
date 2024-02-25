@@ -1,6 +1,6 @@
 custom_build(
     '4bdu1/ssms-api',
-    'mvn jib:dockerBuild -Djib.to.tags=latest,1.0-SNAPSHOT,$EXPECTED_TAG -f ../../ssms-service/ssms-container/pom.xml',
+    'mvn jib:dockerBuild -Djib.to.tags=1.0-SNAPSHOT,$EXPECTED_TAG -f ../../ssms-service/ssms-container/pom.xml',
     deps=['../../ssms-service/ssms-container/src']
     )
 
