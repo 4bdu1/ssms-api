@@ -2,7 +2,10 @@ package com.abduldevelops.ssms.api.domain;
 
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentCommand;
 import com.abduldevelops.ssms.api.domain.dto.command.CreateStudentResponse;
+import com.abduldevelops.ssms.api.domain.dto.query.GetStudentQuery;
+import com.abduldevelops.ssms.api.domain.dto.query.GetStudentResponse;
 import com.abduldevelops.ssms.api.domain.entity.Student;
+import com.abduldevelops.ssms.api.domain.exception.StudentNotFoundException;
 import com.abduldevelops.ssms.api.domain.mapper.StudentDataMapper;
 import com.abduldevelops.ssms.api.domain.port.input.service.StudentApplicationService;
 import com.abduldevelops.ssms.api.domain.port.output.repository.StudentRepository;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,6 +42,8 @@ class StudentApplicationServiceImplTest {
 
     private CreateStudentCommand createStudentCommandWithValidInput;
     private CreateStudentCommand createStudentCommandWithInvalidInput;
+
+    private final UUID STUDENT_SLUG_ID = UUID.fromString("ce88e34a-b967-4a8d-94a0-6defc445d8de");
 
     @BeforeEach
     public void init(){
@@ -72,6 +78,30 @@ class StudentApplicationServiceImplTest {
         assertEquals(constraintViolationException.getMessage(), "createStudent.createStudentCommand.firstName: firstName can't be null");
 
     }
+
+    @Test
+    public void testGetStudentWithSlugId(){
+        Student validStudent = studentDataMapper.createStudentCommandToStudent(createStudentCommandWithValidInput);
+        domainService.validateAndCreateStudent(validStudent);
+        when(studentRepository.findBySlugID(validStudent.getStudentSlugID())).thenReturn(Optional.of(validStudent));
+
+        GetStudentResponse getStudentResponse = studentApplicationService.getStudent(new GetStudentQuery(validStudent.getStudentSlugID().getValue()));
+
+        assertEquals(getStudentResponse.getStudentSlugID(),validStudent.getStudentSlugID().getValue());
+        assertEquals(getStudentResponse.getFirstName(),validStudent.getStudentName().getFirstName());
+    }
+
+
+    @Test
+    public void testGetStudentWithSlugIdNotFound(){
+        StudentNotFoundException studentNotFoundException = assertThrows(StudentNotFoundException.class, ()->{
+            studentApplicationService.getStudent(new GetStudentQuery(STUDENT_SLUG_ID));
+        });
+
+        assertEquals(studentNotFoundException.getMessage(), "Student with slug id "+STUDENT_SLUG_ID+" was not found");
+
+    }
+
 
 
 
