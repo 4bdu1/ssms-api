@@ -1,5 +1,6 @@
 name: Build SSMS
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ main ]
     paths:
